@@ -37,9 +37,9 @@ int main() {
         if (strcmp(command, "help") == 0) {
             printHelp();
         } else if (strcmp(command, "1") == 0) {
-            char *text = new char[100000];
+            char *text = new char[1000];
             std::cout << "Enter text: ";
-            fgets(text, sizeof(text), stdin);
+            fgets(text, 1000, stdin);
             text[strcspn(text, "\n")] = '\0';
             editor.appendText(text);
         } else if (strcmp(command, "2") == 0) {

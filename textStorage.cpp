@@ -19,22 +19,21 @@ textStorage::~textStorage(){
     delete[] lines;
 }
 
-void textStorage::appendText( char* text){
-    if (count == 0){
-        lines[0] = new char[strlen(text) + 1];
-        strcpy(lines[0], text);
-        count =1;
-    } else{
+void textStorage::appendText(char* text) {
+    if (count == 0 || lines[count - 1] == nullptr) {
+        startNewLine();
+    } else {
         int last = count - 1;
         int oldLen = strlen(lines[last]);
         int newLen = oldLen + strlen(text);
-        char* newline = new char[newLen+1];
+        char* newline = new char[newLen + 1];
         strcpy(newline, lines[last]);
         strcat(newline, text);
         delete[] lines[last];
         lines[last] = newline;
     }
 }
+
 
 void textStorage::startNewLine(){
     lines[count] = new char [1];
