@@ -18,6 +18,9 @@ void printHelp(){
     printf("8       Delete text in line and position\n");
     printf("9       Undo\n");
     printf("10      Redo\n");
+    printf("11      Cut command\n");
+    printf("12      Paste command\n");
+    printf("13      Copy command\n");
     printf("14      Insert with replacement\n") ;
 };
 
@@ -90,7 +93,48 @@ int main() {
         } else if (strcmp(command, "10") == 0) {
             editor.redo();
             std::cout << "Redo completed.\n";
-        } else {
+        } else if (strcmp(command, "11")==0){
+            int line, pos, length;
+            std::cout << "Enter line index: ";
+            std::cin >> line;
+            std::cout << "Enter position: ";
+            std::cin >> pos;
+            std::cout << "Enter length to delete: ";
+            std::cin >> length;
+            std::cin.ignore();
+            editor.cutText(line, pos, length);
+        } else if (strcmp(command,"12")==0){
+            int line, pos;
+            std::cout << "Enter line index: ";
+            std::cin >> line;
+            std::cout << "Enter position: ";
+            std::cin >> pos;
+            std::cin.ignore();
+            editor.pasteText(line, pos);
+        } else if (strcmp(command, "13")==0){
+            int line, pos, length;
+            std::cout << "Enter line index: ";
+            std::cin >> line;
+            std::cout << "Enter position: ";
+            std::cin >> pos;
+            std::cout << "Enter length to delete: ";
+            std::cin >> length;
+            std::cin.ignore();
+            editor.copyText(line, pos, length);
+        } else if (strcmp(command, "14")==0){
+            int line, pos;
+            char substr[1000];
+            printf("Enter line index: ");
+            scanf("%d", &line);
+            printf("Enter position: ");
+            scanf("%d", &pos);
+            getchar();
+            printf("Enter substring: ");
+            fgets(substr, 1000, stdin);
+            substr[strcspn(substr, "\n")] = '\0';
+            editor.insertText(substr, line, pos, true);
+        }
+        else {
             std::cout << "Unknown command. Type 'help' for the list of commands.\n";        }
     }
     delete logic;

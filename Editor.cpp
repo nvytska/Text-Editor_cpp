@@ -76,8 +76,24 @@ void Editor::clearRedo() {
         free(redoStack.top().text);
         redoStack.pop();
     }
+
+}
+void Editor::copyText(int line, int pos, int length) {
+    if (clipboard) free(clipboard);
+    clipboard = new char[length + 1];
+    storage.getSubstring(clipboard, line, pos, length);
 }
 
+void Editor::cutText(int line, int pos, int length) {
+    copyText(line, pos, length);
+    deleteText(line, pos, length);
+}
+
+void Editor::pasteText(int line, int pos) {
+    if (clipboard) {
+        insertText(clipboard, line, pos, false);
+    }
+}
 
 
 
