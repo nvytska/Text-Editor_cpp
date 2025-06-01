@@ -25,6 +25,7 @@ public:
     textStorage storage;
     std::stack<Action> undoStack;
     std::stack<Action> redoStack;
+    char* clipboard = nullptr;
 
     void appendText(char *text);
 
@@ -35,6 +36,10 @@ public:
     void undo();
     void redo();
     void clearRedo();
+
+    void copyText(int line, int pos, int length);
+    void cutText(int line, int pos, int length);
+    void pasteText(int line, int pos);
 };
 
 
